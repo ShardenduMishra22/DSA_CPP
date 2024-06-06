@@ -3,6 +3,7 @@ using namespace std;
 
 #define frb(i, len) for(int i = len-1; i >= 0; i--)
 #define fr(i, len) for(int i = 0; i < len; i++)
+#define srt(a) sort(a.begin(),a.end())
 #define tas cout<<"Tell a string : ";
 #define YES cout<<"Yes \n";
 #define No cout<<"No \n";
@@ -12,9 +13,13 @@ using namespace std;
 #define nptr nullptr
 #define pv private
 #define pb public
+typedef unordered_map<int,bool> umpib;
+typedef unordered_map<int,int> umpii;
 typedef vector<vector<string>> vvstr;
 typedef vector<vector<int>> vvint;
 typedef vector<string> vstr;
+typedef map<int,bool> mpib;
+typedef map<int,int> mpii;
 typedef vector<int> vint;
 typedef long long int ll;
 typedef stack<int> sint;
@@ -31,39 +36,4 @@ int InvrsnCnt = 0;
 int size_arr = 0;
 int size_ll = 0;
 int top = -1;
-template <typename T>
 
-class graph{
-    public:
-    unordered_map<T,list<T>> adj;
-    void addEdge(T u,T v,bool dirn){
-        adj[u].push_back(v);
-        if(dirn)
-            adj[v].push_back(u);
-    }
-    
-    void prntAdjList(){
-        for(auto i : adj){
-            cout<<i.first<<" -> ";
-            for(auto j : i.second){
-                cout<<j<<" ";
-            }
-            nl;
-        }
-    }
-
-};
-
-int main(){
-    int n,m;
-    cin>>n>>m;
-
-    graph<int>g;
-
-    for(int i=0;i<m;i++){
-        int u,v;
-        cin>>u>>v;
-        g.addEdge(u,v,1);
-    }
-    g.prntAdjList();
-}

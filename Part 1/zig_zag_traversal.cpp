@@ -116,7 +116,7 @@ vint zig_zag_traversal(node*root){
             q.pop();
 
             // which index to add the element
-            int index = isDirn ? i : size - 1 - i;
+            int index = isDirn ? i : size - i - 1;
             ans[index] = temp->data;
 
             if(temp->left){

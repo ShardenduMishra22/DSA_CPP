@@ -141,10 +141,11 @@ vint VerticalTraversal(node* root) {
     for (auto i : nodes) {
         for (auto j : i.second) {
             for (auto k : j.second) {
-                ans.push_back(k);
+                cout << i.first << " " << j.first << " "<< " " << k << "\n";
             }
         }
     }
+
     return ans;
 }
 

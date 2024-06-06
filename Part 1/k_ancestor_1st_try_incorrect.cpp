@@ -150,7 +150,7 @@ node* k_ancestor(node* root, vint& arr, int n1, int n2) {
     if (root == nullptr) {
         return nullptr;
     }
-    
+        
     // If either of the nodes is found, return that node
     if (root->data == n1 || root->data == n2) {
         arr.push_back(root->data);
