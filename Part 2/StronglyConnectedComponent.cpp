@@ -6,22 +6,22 @@ using namespace std;
 typedef vector<int> vint;
 typedef vector<vector<int>> vvint;
 
-void dfs(int node, vector<bool> &visited, stack<int> &st, vector<vector<int>> &adj) {
-    visited[node] = true;
+void dfs(int node, vector<bool> &vis, stack<int> &st, vector<vector<int>> &adj) {
+    vis[node] = true;
     for (int neighbour : adj[node]) {
-        if (!visited[neighbour]) {
-            dfs(neighbour, visited, st, adj);
+        if (!vis[neighbour]) {
+            dfs(neighbour, vis, st, adj);
         }
     }
     st.push(node);
 }
 
-void reverseDfs(int node, vector<bool> &visited, vector<vector<int>> &transpose, vint &component) {
-    visited[node] = true;
-    component.push_back(node);
+void reverseDfs(int node, vector<bool> &vis, vector<vector<int>> &transpose, vint &cmp) {
+    vis[node] = true;
+    cmp.push_back(node);
     for (int neighbour : transpose[node]) {
-        if (!visited[neighbour]) {
-            reverseDfs(neighbour, visited, transpose, component);
+        if (!vis[neighbour]) {
+            reverseDfs(neighbour, vis, transpose, cmp);
         }
     }
 }
@@ -34,11 +34,11 @@ vector<vector<int>> findSCCs(int V, vector<vector<int>> &edges) {
     }
     
     stack<int> st;
-    vector<bool> visited(V, false);
+    vector<bool> vis(V, false);
     
     fr(i, V) {
-        if (!visited[i]) {
-            dfs(i, visited, st, adj);
+        if (!vis[i]) {
+            dfs(i, vis, st, adj);
         }
     }
     
@@ -48,17 +48,17 @@ vector<vector<int>> findSCCs(int V, vector<vector<int>> &edges) {
         }
     }
     
-    fill(visited.begin(), visited.end(), false);
+    fill(vis.begin(), vis.end(), false);
     vector<vector<int>> sccs;
     
     while (!st.empty()) {
         int node = st.top();
         st.pop();
         
-        if (!visited[node]) {
-            vint component;
-            reverseDfs(node, visited, transpose, component);
-            sccs.push_back(component);
+        if (!vis[node]) {
+            vint cmp;
+            reverseDfs(node, vis, transpose, cmp);
+            sccs.push_back(cmp);
         }
     }
     
@@ -75,9 +75,9 @@ int main() {
     
     vector<vector<int>> sccs = findSCCs(V, edges);
     
-    cout << "Strongly Connected Components:\n";
-    for (auto &component : sccs) {
-        for (int node : component) {
+    cout << "Strongly Connected cmps:\n";
+    for (auto &cmp : sccs) {
+        for (int node : cmp) {
             cout << node << " ";
         }
         cout << "\n";

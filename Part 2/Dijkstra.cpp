@@ -80,8 +80,3 @@ vint djkstra(vvint& vec,int vertex,int edg,int src){
     }
         
 }
-
-
-int main(){
-
-}

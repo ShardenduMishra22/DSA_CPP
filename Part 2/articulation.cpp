@@ -10,26 +10,26 @@ typedef vector<int> vint;
 typedef vector<vector<int>> vvint;
 typedef vector<bool> vbool;
 
-void dfs(int u, int &timer, vint &disc, vint &low, vbool &visited, vint &parent, vbool &articulation, unordered_map<int, list<int>> &adj) {
-    visited[u] = true;
+void dfs(int u, int &timer, vint &disc, vint &low, vbool &vis, vint &prnt, vbool &articulation, unordered_map<int, list<int>> &adj) {
+    vis[u] = true;
     disc[u] = low[u] = ++timer;
     int children = 0;
 
-    for (int v : adj[u]) {
-        if (!visited[v]) {
+    for (int v : adj[u]){
+        if (!vis[v]) {
             children++;
-            parent[v] = u;
-            dfs(v, timer, disc, low, visited, parent, articulation, adj);
+            prnt[v] = u;
+            dfs(v, timer, disc, low, vis, prnt, articulation, adj);
 
             low[u] = min(low[u], low[v]);
 
-            if (parent[u] == -1 && children > 1) {
+            if (prnt[u] == -1 && children > 1) {
                 articulation[u] = true;
             }
-            if (parent[u] != -1 && low[v] >= disc[u]) {
+            if (prnt[u] != -1 && low[v] >= disc[u]) {
                 articulation[u] = true;
             }
-        } else if (v != parent[u]) {
+        } else if (v != prnt[u]) {
             low[u] = min(low[u], disc[v]);
         }
     }
@@ -42,13 +42,13 @@ vint findArticulationPoints(vvint &edges, int V) {
         adj[edge[1]].push_back(edge[0]);
     }
 
-    vint disc(V, -1), low(V, -1), parent(V, -1);
-    vbool visited(V, false), articulation(V, false);
+    vint disc(V, -1), low(V, -1), prnt(V, -1);
+    vbool vis(V, false), articulation(V, false);
     int timer = 0;
 
     fr(i, V) {
-        if (!visited[i]) {
-            dfs(i, timer, disc, low, visited, parent, articulation, adj);
+        if (!vis[i]) {
+            dfs(i, timer, disc, low, vis, prnt, articulation, adj);
         }
     }
 

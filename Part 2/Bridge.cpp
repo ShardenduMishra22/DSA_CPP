@@ -50,15 +50,18 @@ int size_arr = 0;
 int size_ll = 0;
 int top = -1;
 
+unordered_map<int, bool> vis;
+
 void dfs(int u, int prnt, int &tmr, vint &disc, vint &low, vvint &result, unordered_map<int, list<int>> &adj) {
-    static unordered_map<int, bool> vis;
     vis[u] = true;
     disc[u] = low[u] = ++tmr;
     
     for(auto v : adj[u]) {
+        
         if (v == prnt){
             continue;
         }
+
         if(!vis[v]) {
             dfs(v, u, tmr, disc, low, result, adj);
             low[u] = min(low[u], low[v]);
@@ -85,7 +88,7 @@ vvint FindBrdg(vvint &edg, int V, int e) {
 
     int tmr = 0;
     vint disc(V, -1);
-    vint low(V, -1);
+    vint low (V, -1);
     vvint result;
 
     fr(i, V) {
