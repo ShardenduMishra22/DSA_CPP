@@ -5,6 +5,7 @@ using namespace std;
 #define fr(i, len) for(int i = 0; i < len; i++)
 
 #define rvrs(a) reverse(a.begin(),a.end())
+
 #define srt(a) sort(a.begin(),a.end())
 
 #define YES cout<<"Yes \n";
